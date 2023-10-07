@@ -1,0 +1,29 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main  # Replace with your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Choose your desired runner environment
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2  # Use the appropriate version of the checkout action
+
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11  # Replace with your desired Java version
+
+    - name: Run Maven build
+      run: mvn clean test
+      working-directory: tutorial4  # Specify the directory where your Maven project is located
+
+    - name: Deploy to Production
+      if: success()  # Deploy only if previous steps are successful
+      run: |
+        # Add your deployment script here
+        # This might involve copying files to a server, pushing to a cloud platform, etc.
